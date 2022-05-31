@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Bash Script Cheatsheet</title>
+
+		<meta name="description" content="Bash Script Cheatsheet">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-background-color="#148f77">
+					<img src="media/bash-logo.png" alt="Bash Logo"  class="demo-logo">
+					<h3>Cheatsheet </h3>
+				</section>
+
+				<section>
+					<h2><span style="display: inline-block;" class="fragment fade-up">What is Bash</span></h2>
+					<p><span style="display: inline-block;" class="fragment fade-up">A command language interpreter.  </span></p>
+					<p><span style="display: inline-block;" class="fragment fade-up">It is widely available on various operating systems and is a default command interpreter on most GNU/Linux systems.</span></p>
+					<p><span style="display: inline-block;" class="fragment fade-up">The name is an acronym for the ‘Bourne-Again SHell’. </span></p>
+				</section>
+
+				<section>
+					<h2><span style="display: inline-block;" class="fragment fade-up">What is Scripting?</span></h2>
+					<p><span style="display: inline-block;" class="fragment fade-up">Scripting allows for an automatic commands execution that would otherwise be executed interactively one-by-one.</span></p>
+				</section>
+
+				<section>
+					<h2>Shebang or Hashbang</h2>
+					<p><span style="display: inline-block;" class="fragment fade-up">Tells the system that the commands that follow are to be executed by the Bourne shell
+						which bash - to get location of bash
+						</span></p>
+						<pre data-id="code-animation"><code class="hljs fragment fade-up" data-trim data-line-numbers>
+							#!/bin/bash
+						</code></pre>
+				</section>
+
+				<section>
+					<h2>First Script: Hello World</h2>
+					<ul>
+						<li class="fragment fade-up">Create file named as hello.sh</li>
+						<li class="fragment fade-up">
+							Copy the following code:
+							<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+							#!/bin/bash
+							
+							echo "Hello World"
+							</code></pre>
+						</li>
+						<li class="fragment fade-up">Make the script executable: <b>chmod +x hello.sh</b></li>
+						<li class="fragment fade-up">Running the script: <b>./hello.sh</b></li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<p><span style="display: inline-block;" >One-line Comments</span></p>
+						<pre data-id="code-animation" class="fragment fade-up"><code class="hljs" data-trim data-line-numbers>
+							#! /bin/bash
+
+							#this is a sample one line comment
+							echo "hello world" > output.txt
+						</code></pre>
+					</section>
+					<section>
+						<p><span style="display: inline-block;">Multi-line Comments</span></p>
+						<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+							#!/bin/bash
+							: '
+							This is the segment of multi-line comments
+							Through this script, you will learn
+							How to do multi-line commenting
+							'
+							echo "Hello World"
+						</code></pre>
+					</section>
+					<section>
+						<p><span style="display: inline-block;">Heredoc</span></p>
+						<pre data-id="code-animation"><code class="hljs" data-trim data-line-numbers>
+							#!/bin/bash
+							cat << ADDTEXT
+							a Here document (Heredoc) is a type of redirection that allows you to pass multiple lines of input to a command.
+							sample commands:
+							The current working directory is: $PWD
+							You are logged in as: $(whoami)
+							ADDTEXT
+						</code></pre>
+					</section>
+			    </section>
+
+				<section>
+						<h2>Redirect to File</h2>
+						<p class="fragment fade-up"><span style="display: inline-block; margin-left:4%" class="fragment fade-up">To capture the output from the shell or the output of a file</span></p>
+						<pre data-id="code-animation" class="fragment fade-up"><code class="hljs" data-trim data-line-numbers>
+							#!/bin/bash
+							
+							echo "hello world" > output.txt
+						</code></pre>
+				</section>
+
+				<section>
+					<section>
+						<h2>VARIABLES</h2>
+						<p class="fragment fade-up"><span style="display: inline-block; margin-left:4%; font-size:24px">Can contain only letters (a to z or A to Z), numbers ( 0 to 9) or the underscore character( _).
+						By convention, Unix shell variables will have their names in UPPERCASE.</span></p>
+						<p class="fragment fade-up"><span style="display: inline-block; margin-left:4%; font-size:24px"></span></p>
+						<pre data-id="code-animation" class="fragment fade-up"><code class="hljs" data-trim data-line-numbers>
+							#!/bin/bash
+
+							NAME="Ran"
+							echo $NAME
+						</code></pre>
+					</section>
+					<section>
+						<h2>Read-only VARIABLES</h2>
+						<p class="fragment fade-up"><span style="display: inline-block; margin-left:4%; font-size:24px">After a variable is marked read-only, its value cannot be changed.</span></p>
+						<pre data-id="code-animation" class="fragment fade-up"><code class="hljs" data-trim data-line-numbers>
+							#!/bin/bash
+
+							NAME="Ran"
+							readonly NAME
+							echo $NAME
+						</code></pre>
+					</section>
+					<section>
+						<h2>Unsetting Variables</h2>
+						<p class="fragment fade-up"><span style="display: inline-block; margin-left:4%; font-size:24px">deleting a variable directs the shell to remove the variable from the list of variables that it tracks. Once you unset a variable, you cannot access the stored value in the variable.</span></p>
+							<pre data-id="code-animation" class="fragment fade-up"><code class="hljs" data-trim data-line-numbers>
+								#!/bin/bash
+	
+								NAME="Ran"
+								unset NAME
+								echo $NAME
+							</code></pre>
+					</section>
+			  	</section>
+
+				<section>
+					<section>
+						<h5 data-id="code-title">Command Line Arguments</h5>
+						<p class="fragment fade-up"><span style="display: inline-block; margin-left:4%; font-size:24px">a parameter that we can supply to our Bash script at execution.</span></p>
+						<pre data-id="code-animation" class="fragment fade-up"><code class="hljs" data-trim >
+							Command: ./multiple_argument.sh mango apple banana
+						</code></pre>
+						
+						<pre data-id="code-animation" class="fragment fade-up"><code class="hljs" data-trim data-line-numbers>
+							#!/bin/bash
+
+							echo "The first index is": $0
+							echo "The first fruit is: $1"
+							echo "The second fruit is: $2"
+							echo "The third fruit is: $3"
+						</code></pre>
+
+
+						<pre data-id="code-animation" class="fragment fade-up"><code class="hljs" data-trim >
+							Output
+
+							The first index is: ./multiple_arguments.sh
+							The first fruit is: mango
+							The second fruit is: apple
+							The third fruit is: banana
+						</code></pre>
+					</section>
+					<section>
+						<h2 data-id="code-title">Reading all arguments and getting the length</h2>
+						<pre data-id="code-animation" class="fragment fade-up"><code class="hljs" data-trim >
+							Command: ./multiple_argument.sh mango apple banana
+						</code></pre>
+						<pre data-id="code-animation" class="fragment fade-up"><code class="hljs" data-trim  data-line-numbers="4-7|10">
+							#!/bin/bash
+
+							### Printing all arguments
+							for TOKEN in $*
+							do
+								echo $TOKEN
+							done
+
+							### Getting the length of arguments
+							echo 'Total Arguments:' $#
+						</code></pre>
+						<pre data-id="code-animation" class="fragment fade-up"><code class="hljs" data-trim >
+							Output
+
+							mango
+							apple
+							banana
+							Total Arguments: 3
+						</code></pre>
+					</section>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Read Input</h2>
+						<p class="fragment fade-up"><span style="display: inline-block; margin-left:4%; font-size:24px">The user may provide input to the Bash script</span></p>
+					
+						<pre data-id="code-animation" class="fragment fade-up"><code class="hljs" data-trim >
+							#!/bin/bash
+
+							echo Hello, who am I talking to?
+							read VARNAME
+							echo It\'s nice to meet you $VARNAME
+						</code></pre>
+					</section>
+					<section>
+						<h2>Multiple Inputs</h2>
+						<pre data-id="code-animation" class="fragment fade-up"><code class="hljs" data-trim >
+							#!/bin/bash
+
+							echo What cars do you like?
+							read car1 car2 car3
+							echo Your first car was: $car1
+							echo Your second car was: $car2
+							echo Your third car was: $car3
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Basic Operators</h2>
+
+						<pre data-id="code-animation" class="fragment fade-up"><code class="hljs" data-trim data-line-numbers="3-5|8-9|12-13">
+							#!/bin/bash
+
+							read -p 'Please enter the first number:' FIRST
+							read -p 'Please enter the second number:' SECOND
+							read -p 'Please enter the operator:' OPERATOR
+
+							### First Way 
+							RES=`expr $FIRST $OPERATOR $SECOND` 
+							echo "The result is: $RES"
+							
+							### Second Way
+							RES2=$(($FIRST $OPERATOR $SECOND)) 
+							echo "The result is: $RES2"
+
+						</code></pre>
+
+						<p class="fragment fade-up"><span style="display: inline-block; margin-left:4%; font-size:24px">Reference for List of Operators: https://www.tutorialspoint.com/unix/unix-basic-operators.htm</span></p>
+					</section>
+				</section>
+				
+				<section>
+					<h5>Arrays</h5>
+					<pre data-id="code-animation" class="fragment fade-up"><code class="hljs" data-trim data-line-numbers="3-4|6-10">
+						#!/bin/bash
+
+						CARS=('BMW' 'TOYOTA' 'HONDA')
+						echo "${CARS[@]}"
+
+						#printing value by using index
+						echo "printing value using index"
+						echo "${CARS[0]}"
+						echo "${CARS[1]}"
+						echo "${CARS[2]}"
+					</code></pre>
+
+				</section>
+
+				<section>
+					<h5>Functions</h5>
+					<pre data-id="code-animation" class="fragment fade-up"><code class="hljs" data-trim data-line-numbers="3-4|6-10">
+						#!/bin/bash
+
+						function compute(){
+							echo `expr $1 + 2`
+						}
+						 
+						read -p 'Enter number: ' NUMBER
+						 
+						compute ${NUMBER}
+						 
+					</code></pre>
+
+				</section>
+
+				<section>
+					<h5>Condtional Statements</h5>
+					<pre data-id="code-animation" class="fragment fade-up"><code class="hljs" data-trim data-line-numbers>
+						#!/bin/bash
+
+						read -p 'Enter number: ' COUNT
+
+						if [ $COUNT -eq 10 ]
+						then
+							echo "the condition is true"
+						else
+							echo "the condition is false"
+						fi
+						 
+					</code></pre>
+
+				</section>
+
+				<section>
+					<h5>For Loops</h5>
+					<pre data-id="code-animation" class="fragment fade-up"><code class="hljs" data-trim data-line-numbers>
+						#!/bin/bash
+
+						NAMES="rachel monica joey chandler phoebe ross"
+						for NAME in $NAMES
+							do
+								echo "Hello ${NAME}"
+						done
+	 
+					</code></pre>
+
+				</section>
+
+				<section>
+					<h5>Case Statements</h5>
+					<pre data-id="code-animation" class="fragment fade-up"><code class="hljs" data-trim data-line-numbers>
+						#!/bin/bash
+
+						echo "Which color do you like best?"
+						echo "1 - Blue"
+						echo "2 - Red"
+						echo "3 - Yellow"
+						echo "4 - Green"
+						echo "5 - Orange"
+						read color;
+
+						case $color in
+							1) echo "Blue is a primary color.";;
+							2) echo "Red is a primary color.";;
+							3) echo "Yellow is a primary color.";;
+							4) echo "Green is a secondary color.";;
+							5) echo "Orange is a secondary color.";;
+							*) echo "This color is not available. Please choose a different one.";; 
+						esac
+	 
+					</code></pre>
+
+				</section>
+
+				
+			</div>
+
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/zoom/zoom.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/search/search.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>
